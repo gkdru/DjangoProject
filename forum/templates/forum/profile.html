@@ -1,0 +1,17 @@
+{% extends 'forum/base.html' %}
+{% block content %}
+<h1>Profile</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ U_form.as_p }}
+    {{ P_form.as_p }}
+    <button type="submit">Save Profile</button>
+</form>
+
+<h2>Change Password</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ password_form.as_p }}
+    <button type="submit">Change Password</button>
+</form>
+{% endblock %}

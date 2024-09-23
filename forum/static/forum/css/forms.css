@@ -1,0 +1,41 @@
+/* DjangoProject/forum/static/css/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    margin: 50px auto;
+    width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+form input {
+    margin: 10px 0;
+    font-size: 22px;
+}
+button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}

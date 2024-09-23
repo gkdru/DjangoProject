@@ -1,0 +1,22 @@
+.container {
+    max-width: 1800px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    max-width: 450px;
+    width: 100%;
+}
+
+.content {
+    max-width: 750px;
+    width: 100%;
+}
+
+.profile {
+    max-width: 600px;
+    width: 100%;
+}
