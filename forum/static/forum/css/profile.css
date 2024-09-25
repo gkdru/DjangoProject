@@ -1,0 +1,102 @@
+.profile-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.profile-container h2 {
+    background-color: #3498db;
+    color: white;
+    padding: 15px;
+    margin: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.profile-content {
+    display: flex;
+    padding: 20px;
+}
+
+.profile-photo {
+    flex: 0 0 200px;
+    text-align: center;
+}
+
+.profile-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.change-photo-btn {
+    margin-top: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.profile-form {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.profile-tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-tabs li {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.profile-tabs li.active {
+    border-bottom: 2px solid #3498db;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.cancel-btn, .save-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.save-btn {
+    background-color: #3498db;
+    color: white;
+}

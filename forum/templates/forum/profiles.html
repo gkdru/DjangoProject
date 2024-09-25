@@ -1,19 +1,31 @@
 {% extends 'forum/base.html' %}
+{% load static %}
+
 {% block content %}
-{% for profile in profiles %}
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="..." class="card-img" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-            <h2>{{ profile.user.username }}</h2>
-          <p class="card-text"></p>
-          <p class="card-text"><small class="text-muted">{{ profile.user.created_at }}</small></p>
+{% if user.is_authenticated %}
+    {% if profiles %}
+        {% for profile in profiles %}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    {% if profile.image %}
+                        <img src="{{ profile.image.url }}" class="card-img" alt="{{ profile.user.username }}'s profile picture">
+                    {% else %}
+                        <img src="{% static 'forum/imgs/default.jpg' %}" class="card-img" alt="Default profile picture">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ profile.user.username }}</h5>
+                        <p class="card-text">@{{ profile.user.username }}</p>
+                        <p class="card-text"><small class="text-muted">Last login {{ profile.user.last_login }}</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-{% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>No profiles found.</p>
+    {% endif %}
+{% endif %}
 {% endblock %}
