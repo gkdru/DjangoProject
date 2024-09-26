@@ -1,69 +1,67 @@
 .container {
-    max-width: 1800px;
-    width: 100%;
+  max-width: 1800px;
+  width: 100%;
 }
-.main{
-    display: flex;
-    flex-direction: row;
+.main {
+  display: flex;
+  flex-direction: row;
 }
-.nav{
-    max-width: 450px;
-    width: 100%;
+.nav {
+  max-width: 450px;
+  width: 100%;
 }
 
 .content {
-    max-width: 750px;
-    width: 100%;
+  max-width: 750px;
+  width: 100%;
 }
 
 .profile {
-    max-width: 600px;
-    width: 100%;
-} 
-.alert-primary{
-    background-color: #e2e3e5;
+  max-width: 600px;
+  width: 100%;
+}
+.alert-primary {
+  background-color: #e2e3e5;
 }
 .messages {
-
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    width: 100%;
-    max-width: 750px;
-    list-style: none;
-    padding: 0;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 100%;
+  max-width: 750px;
+  list-style: none;
+  padding: 0;
 }
 
 .messages li {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 }
 
 .messages .alert {
-    margin-bottom: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: aqua;
-    border: 1px solid #99e6e6;
-    color: black;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: aqua;
+  border: 1px solid #99e6e6;
 }
 
 .nav-link form {
-    display: inline;
+  display: inline;
 }
 
 .nav-link .btn-link {
-    color: inherit;
-    text-decoration: none;
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
 }
 
 .nav-link .btn-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

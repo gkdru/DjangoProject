@@ -1,0 +1,67 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="">
+            {% if post.author.profile.image %}
+            <img src="{{ post.author.profile.image.url }}" width="100px" height="100px" class="rounded-circle"
+                alt=" {{ post.author.username }}'s profile picture">
+            {% else %}
+            <img src="{% static 'forum/imgs/default.jpg' %}" width="100px" height="100px" class="rounded-circle"
+                alt="Default profile picture">
+            {% endif %}
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p><small>By {{ post.author }} on {{ post.created_at }}</small></p>
+            <hr>
+            <h3>Comments</h3>
+            {% for comment in comments %}
+
+            <div class="alert alert-light" role="alert">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <a href="{% url 'forum:profile' pk=comment.author.pk %}"
+                                class="text-decoration-none text-dark">
+                                {% if comment.author.profile.image %}
+                                <img src="{{ comment.author.profile.image.url }}" width="100px" height="100px"
+                                    class="rounded-circle" alt=" {{ comment.author.username }}'s profile picture">
+                                {% else %}
+                                <img src="{% static 'forum/imgs/default.jpg' %}" width="75px" height="75px"
+                                    class="rounded-circle" alt="Default profile picture">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-9">
+
+
+                            <p> {{ comment.content }}</p>
+                            <p><small>{{ comment.created_at }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% empty %}
+            <p>No comments yet.</p>
+            {% endfor %}
+
+            <h4 class="mt-4 mb-3">Add a comment</h4>
+            <form method="post" class="comment-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ comment_form.content.label_tag }}
+                    {{ comment_form.content }}
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Submit Comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'forum/css/posts_comments.css' %}">
+{% endblock %}

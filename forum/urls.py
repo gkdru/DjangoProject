@@ -8,7 +8,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='forum/forms/logout.html', next_page='forum:index'), name='logout'),
     path('register/', views.register, name='register'),
     path('profiles/', views.profiles, name='profiles'),
-    path('profile/', views.profile, name='profile'),
-    # path('profile/edit/', views.edit_profile, name='edit_profile'),
-    # path('profile/delete/', views.delete_profile, name='delete_profile'),
+    path('profile/<int:pk>/', views.my_profile, name='profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('create/', views.create_post, name='create_post'),
 ]

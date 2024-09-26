@@ -1,20 +1,48 @@
 {% extends 'forum/base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QOZ</title>
-</head>
-<body>
-    {% block content %}
-<h1>Hello</h1>
-{% endblock %}
+{% load static %}
 
-<div class="profile">
-    {% block profile %}
-    <h1>Profile</h1>
-    {% endblock %}
+
+{% block content %}
+<div class="container">
+    <br />
+    <div class="posts">
+        <h3>Posts</h3>
+        {% if posts %}
+        {% for post in posts %}
+        <div class="alert alert-secondary" role="alert">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        {% if post.author.profile.image %}
+                        <img src="{{ post.author.profile.image.url }}" width="100px" height="100px"
+                            class="rounded-circle" alt=" {{ post.author.username }}'s profile picture">
+                        {% else %}
+                        <img src="{% static 'forum/imgs/default.jpg' %}" width="75px" height="75px"
+                            class="rounded-circle" alt="Default profile picture">
+                        {% endif %}
+                    </div>
+                    <div class="col-8">
+                        <a href="{% url 'forum:post_detail' pk=post.pk %}"
+                            class="list-group-item list-group-item-action">
+                            <h5 class="mb-1">{{ post.title }}</h5>
+                            <p class="pr-3">{{ post.content|truncatewords:25 }}</p>
+                            <small>
+                                <a href="{% url 'forum:profile' pk=post.author.pk %}">By {{ post.author.username}}
+                                </a>
+                                on {{ post.created_at }}
+                            </small>
+                        </a>
+                        <hr>
+                        <img src="{% static 'forum/imgs/comment.svg' %}" width="25px" height="25px" alt="comment icon">
+                        Comments: {{ post.comments.count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No posts found.</p>
+        {% endif %}
+    </div>
 </div>
-</body>
-</html>
+{% endblock %}

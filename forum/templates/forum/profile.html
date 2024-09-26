@@ -1,80 +1,62 @@
 {% extends 'forum/base.html' %}
 {% load static %}
 
-{% block title %}Edit your Profile{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'forum/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'forum/css/my_profile.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="profile-container">
-    <h2>Edit your Profile</h2>
-
-    <div class="profile-content">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="profile-photo">
-                <img src="{{ user.profile.image.url }}" alt="Profile Photo" id="profile-image">
-                <input type="file" id="id_image" name="image" style="display: none;" accept="image/*">
-                <button type="button" class="change-photo-btn"
-                    onclick="document.getElementById('id_image').click()">CHANGE PHOTO</button>
-            </div>
-            <div class="profile-form">
-                <div class="form-group">
-                    <label for="id_username">Username:</label>
-                    {{ user_form.username }}
-                    <small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
-                </div>
-                <div class="form-group">
-                    <label for="id_email">Email address:</label>
-                    {{ user_form.email }}
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="save-btn">Save Profile</button>
-                </div>
-            </div>
-        </form>
+<div class="container">
+    <div class="head-info">
+        {% if profile.image %}
+        <img src="{{ profile.image.url }}" class=" rounded-circle" width="200px" height="200px"
+            alt=" {{ profile.user.username }}'s profile picture">
+        {% else %}
+        <img src="{% static 'forum/imgs/default.jpg' %}" class=" rounded-circle" width="200px" height="200px"
+            alt="Default profile picture">
+        {% endif %}
+        <h2>{{ profile.user.username }}'s profile</h2>
     </div>
-</div>
-
-<div class="profile-container">
-    <h2>Change Password</h2>
-    <div class="profile-content">
-        <div class="profile-form">
-            <form method="post">
-                {% csrf_token %}
-                {% for field in password_form %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.help_text %}
-                    <small>{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                    <p class="error">{{ error }}</p>
-                    {% endfor %}
+    <br />
+    <div class="posts">
+        <h3>Posts</h3>
+        {% if posts %}
+        {% for post in posts %}
+        <div class="alert alert-secondary" role="alert">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        {% if post.author.profile.image %}
+                        <img src="{{ post.author.profile.image.url }}" width="75px" height="75px" class="rounded-circle"
+                            alt=" {{ post.author.username }}'s profile picture">
+                        {% else %}
+                        <img src="{% static 'forum/imgs/default.jpg' %}" width="75px" height="75px"
+                            class="rounded-circle" alt="Default profile picture">
+                        {% endif %}
+                    </div>
+                    <div class="col-8">
+                        <a href="{% url 'forum:post_detail' pk=post.pk %}"
+                            class="list-group-item list-group-item-action">
+                            <h5 class="mb-1">{{ post.title }}</h5>
+                            <p class="pr-3">{{ post.content|truncatewords:25 }}</p>
+                            <small>
+                                <a href="{% url 'forum:profile' pk=post.author.pk %}">By {{ post.author.username}}
+                                </a>
+                                on {{ post.created_at }}
+                            </small>
+                        </a>
+                        <hr>
+                        <img src="{% static 'forum/imgs/comment.svg' %}" width="25px" height="25px" alt="comment icon">
+                        Comments: {{ post.comments.count }}
+                    </div>
                 </div>
-                {% endfor %}
-                <input type="hidden" name="password_change" value="1">
-                <div class="form-actions">
-                    <button type="submit" class="save-btn">Change Password</button>
-                </div>
-            </form>
+            </div>
         </div>
+        {% endfor %}
+        {% else %}
+        <p>No posts found.</p>
+        {% endif %}
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-<script>
-    document.getElementById('id_image').addEventListener('change', function (e) {
-        var file = e.target.files[0];
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            document.getElementById('profile-image').src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-    });
-</script>
 {% endblock %}

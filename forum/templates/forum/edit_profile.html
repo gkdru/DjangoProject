@@ -1,0 +1,80 @@
+{% extends 'forum/base.html' %}
+{% load static %}
+
+{% block title %}Edit your Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'forum/css/edit_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Edit your Profile</h2>
+
+    <div class="profile-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-photo">
+                <img src="{{ user.profile.image.url }}" alt="Profile Photo" id="profile-image">
+                <input type="file" id="id_image" name="image" style="display: none;" accept="image/*">
+                <button type="button" class="change-photo-btn"
+                    onclick="document.getElementById('id_image').click()">CHANGE PHOTO</button>
+            </div>
+            <div class="profile-form">
+                <div class="form-group">
+                    <label for="id_username">Username:</label>
+                    {{ user_form.username }}
+                    <small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email address:</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Save Profile</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="profile-container">
+    <h2>Change Password</h2>
+    <div class="profile-content">
+        <div class="profile-form">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in password_form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                    <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                <input type="hidden" name="password_change" value="1">
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('id_image').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            document.getElementById('profile-image').src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+{% endblock %}
